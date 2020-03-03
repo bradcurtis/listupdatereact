@@ -4,7 +4,11 @@ const path = require("path");
 // export default {
 module.exports = {
     mode: 'development',
-    entry: path.resolve(__dirname, 'src'),
+    entry: [
+        'babel-polyfill',
+        path.resolve(__dirname, 'src')
+        
+    ],
     output: {
         path: path.resolve(__dirname,'dist'),
         filename: 'index.js',

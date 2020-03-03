@@ -1,4 +1,5 @@
 import React, {Component} from 'react'; 
+import MemeList from "./MemeList"
 
   
 export  class ChangeColor extends Component { 
@@ -6,7 +7,11 @@ export  class ChangeColor extends Component {
     { 
         super(props); 
         this.state = { color : '#4cb96b' }; 
-    } 
+        
+    }
+    
+
+  
   
     getClick() 
     { 
@@ -14,19 +19,25 @@ export  class ChangeColor extends Component {
             this.setState({ color : '#aaa' }); 
         else
             this.setState({ color : '#4cb96b' }); 
-    } 
-  
+
+           
+    }   
     render() 
     { 
-        return <h1 style = { this.state }  
+        
+     
+        return <div>
+           <h1 style = { this.state }  
                    onClick = {this.getClick.bind(this)}> 
-               {this.props.title} 
-               <ul>
-                   <li>
-                       test1
-                   </li>
-               </ul>
-               </h1>  
+               {this.props.title}          
+              
+           
+
+               </h1> 
+
+<MemeList persons={this.props.persons}></MemeList>
+</div>
+               
   } 
 }   
   
