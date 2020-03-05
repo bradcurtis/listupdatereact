@@ -22,20 +22,13 @@ const store = configureStore();
 
 class App extends Component { 
 
-    
-
-    
-
     render() {
      
   return(
         <Provider store={store}>
-            <div><h2>Welcome to</h2>
+            <div><h2>Telework Update</h2>
 
             <ItemList />  
-       
-
-        
 
         </div></Provider>
   )

@@ -25,15 +25,18 @@ import React, {Component} from 'react';
         return(
        <li 
                 onClick = {this.onItemClickHandler.bind(this,this.props.item)} >
-        {this.props.item.label}
+        {this.props.item.Title}
         <div style = { this.state } >
+           
+           <div><h2>Name:  {this.props.item.TeleworkerName.Name}</h2></div>
+                                       
            
 
             <label for="fname">Office:</label>
-            <input type="text" id="fname" name="fname" value={this.props.item.id} />
+            <input type="text" id="fname" name="fname" value={this.props.item.Office} />
             
-            <label for="lname">HR Id: </label>
-            <input type="text" id="lname" name="lname" value={this.props.item.id} />
+            <label for="lname">Position Ttile: </label>
+            <input type="text" id="lname" name="lname" value={this.props.item.PositionTitle} />
            
            
            

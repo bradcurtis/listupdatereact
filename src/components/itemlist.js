@@ -6,8 +6,8 @@ import { itemsFetchData } from '../actions/items';
 
 class ItemList extends Component {
     componentDidMount() {
-        this.props.fetchData('http://599167402df2f40011e4929a.mockapi.io/items');
-        //this.props.fetchData('http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster')
+        //this.props.fetchData('http://599167402df2f40011e4929a.mockapi.io/items');
+        this.props.fetchData('http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster?$expand=TeleworkerName&?$filter=SuperOffice eq null')
     }
 
     render() {
@@ -21,7 +21,7 @@ class ItemList extends Component {
 
         return (
             <ul>
-                {this.props.items.map((item) => (
+                {this.props.items.filter(items => items.Office==null && items.Title != 'Historical Data Upload').map((item) => (
                     <ItemDetail item={item}></ItemDetail>
                 ))}
             </ul>
