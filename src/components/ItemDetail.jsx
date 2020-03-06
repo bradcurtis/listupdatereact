@@ -1,12 +1,16 @@
 import React, {Component} from 'react'; 
+import {EmployeeListDetail} from './EmployeeListDetail'
 
- export default class ItemDetail extends Component { 
+
+ export default  class ItemDetail extends Component { 
  
     constructor(props) 
     { 
         super(props);  
         this.state = { display : 'none' }; 
     }
+
+  
 
     onItemClickHandler(item, e){
         console.log("test");
@@ -22,6 +26,8 @@ import React, {Component} from 'react';
 
     render() 
     { 
+      //check for null teleworker
+       if(this.props.item.TeleworkerName){
         return(
        <li 
                 onClick = {this.onItemClickHandler.bind(this,this.props.item)} >
@@ -29,7 +35,7 @@ import React, {Component} from 'react';
         <div style = { this.state } >
            
            <div><h2>Name:  {this.props.item.TeleworkerName.Name}</h2></div>
-                                       
+                                    
            
 
             <label for="fname">Office:</label>
@@ -45,6 +51,8 @@ import React, {Component} from 'react';
         </div>
         </li> 
         )
+    }
+    return (<p>missing teleworker name</p>)
     }
 
 }

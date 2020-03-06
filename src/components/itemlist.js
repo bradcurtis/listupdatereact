@@ -7,7 +7,8 @@ import { itemsFetchData } from '../actions/items';
 class ItemList extends Component {
     componentDidMount() {
         //this.props.fetchData('http://599167402df2f40011e4929a.mockapi.io/items');
-        this.props.fetchData('http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster?$expand=TeleworkerName&?$filter=SuperOffice eq null')
+        //http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'
+        this.props.fetchData('http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster?$expand=TeleworkerName&$filter=Office eq null')
     }
 
     render() {
@@ -19,6 +20,7 @@ class ItemList extends Component {
             return <p>Loading…</p>;
         }
 
+        if (this.props.items){
         return (
             <ul>
                 {this.props.items.filter(items => items.Office==null && items.Title != 'Historical Data Upload').map((item) => (
@@ -26,6 +28,7 @@ class ItemList extends Component {
                 ))}
             </ul>
         );
+        }
     }
 }
 
