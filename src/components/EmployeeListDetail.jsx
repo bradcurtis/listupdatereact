@@ -4,13 +4,11 @@ import propTypes from 'prop-types'
 import { itemdetailsFetchData } from '../actions/itemdetails';
 
 
+
+
   class EmployeeListDetail extends Component { 
  
-    constructor(props) 
-    { 
-        super(props);  
-        this.state = { display : 'none' }; 
-    }
+    
 
     componentDidMount() {
 
@@ -18,7 +16,7 @@ import { itemdetailsFetchData } from '../actions/itemdetails';
         console.log(this.props.employee);
     
        // /http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'
-        this.props.EmployeeListDetailfetchData("http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq '"+this.props.employee+"'")
+        this.props.EmployeeListDetailfetchData("http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount&$filter=ADAccount/WorkEMail eq '"+this.props.employee+"'")
     }
     }
 
@@ -50,6 +48,9 @@ import { itemdetailsFetchData } from '../actions/itemdetails';
            <div> Grade:    {this.props.EmployeeListDetailitemdetail[0].Grade} </div>
            <div>BUCode:  {this.props.EmployeeListDetailitemdetail[0].BUCode} </div>
            <div> JobTtile:  {this.props.EmployeeListDetailitemdetail[0].JobTitle} </div>
+
+          
+           
              </div>                          
            
         )

@@ -24,7 +24,7 @@ class ItemList extends Component {
         return (
             <ul>
                 {this.props.items.filter(items => items.Office==null && items.Title != 'Historical Data Upload').map((item) => (
-                    <ItemDetail item={item}></ItemDetail>
+                    <ItemDetail key={item.Id} item={item}></ItemDetail>
                 ))}
             </ul>
         );
