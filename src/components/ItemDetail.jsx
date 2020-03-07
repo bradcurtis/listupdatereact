@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; 
-import {EmployeeListDetail} from './EmployeeListDetail'
+
+import EmployeeListDetail from './EmployeeListDetail'
 
 
  export default  class ItemDetail extends Component { 
@@ -27,23 +28,30 @@ import {EmployeeListDetail} from './EmployeeListDetail'
     render() 
     { 
       //check for null teleworker
-       if(this.props.item.TeleworkerName){
+
+      if (this.state.display === "none" || !this.props.item.TeleworkerName){
+          return(
+            <li 
+            onClick = {this.onItemClickHandler.bind(this,this.props.item)} >{this.props.item.Title} </li>
+          )
+      }
+       if(this.props.item.TeleworkerName.Name && this.state.display === "block" ){
         return(
        <li 
                 onClick = {this.onItemClickHandler.bind(this,this.props.item)} >
         {this.props.item.Title}
         <div style = { this.state } >
            
-           <div><h2>Name:  {this.props.item.TeleworkerName.Name}</h2></div>
-                                    
-           
+           <div><h2>Telework List Information</h2></div>
 
-            <label for="fname">Office:</label>
-            <input type="text" id="fname" name="fname" value={this.props.item.Office} />
+           <div>Name:  {this.props.item.TeleworkerName.Name}</div>
+           <div> Office:   {this.props.item.Office}  </div>
+           <div> Title:   {this.props.item.PositionTitle} </div>
+
+
+           <EmployeeListDetail employee={this.props.item.TeleworkerName.SIPAddress}></EmployeeListDetail>
+                                    
             
-            <label for="lname">Position Ttile: </label>
-            <input type="text" id="lname" name="lname" value={this.props.item.PositionTitle} />
-           
            
            
             <button>Update Item</button>
@@ -51,8 +59,11 @@ import {EmployeeListDetail} from './EmployeeListDetail'
         </div>
         </li> 
         )
+
+        
     }
     return (<p>missing teleworker name</p>)
+   
     }
 
 }

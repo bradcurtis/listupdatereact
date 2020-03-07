@@ -33,7 +33,7 @@ export function itemdetailsFetchData(url) {
                 throw Error(response.statusText);
             }
             dispatch(itemdetailsIsLoading(false));
-
+            console.log("found response" + response)
             return response;
         })
         .then((response) => response.data.d.results)

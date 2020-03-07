@@ -4,7 +4,7 @@ import propTypes from 'prop-types'
 import { itemdetailsFetchData } from '../actions/itemdetails';
 
 
-  export class EmployeeListDetail extends Component { 
+  class EmployeeListDetail extends Component { 
  
     constructor(props) 
     { 
@@ -13,14 +13,20 @@ import { itemdetailsFetchData } from '../actions/itemdetails';
     }
 
     componentDidMount() {
-       // /http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'
-        //this.props.EmployeeListDetailfetchData("http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'")
 
+        if(this.props.employee){
+        console.log(this.props.employee);
+    
+       // /http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'
+        this.props.EmployeeListDetailfetchData("http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq '"+this.props.employee+"'")
+    }
     }
 
    
     render() 
     { 
+
+        console.log("render" + this.props.EmployeeListDetailitemdetail)
 
         if (this.props.EmployeeListDetailhasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
@@ -31,16 +37,28 @@ import { itemdetailsFetchData } from '../actions/itemdetails';
             return <p>Loading…</p>;
         }
         
-        if (this.props.EmployeeListDetailitemdetail){
+        if (this.props.EmployeeListDetailitemdetail && this.props.EmployeeListDetailitemdetail[0] && this.props.EmployeeListDetailitemdetail[0].EmployeeName){
         console.log("employee detail:" + this.props.EmployeeListDetailitemdetail)
         return(
       
-           
-           <div><h2>Name:  {this.props.EmployeeListDetailitemdetail.ADAccount.Name}</h2></div>
-                                       
+           <div>
+            <div><h2>Employee List Information</h2></div>
+           <div>Name:  {this.props.EmployeeListDetailitemdetail[0].EmployeeName}</div>
+           <div> CAPHRID:   {this.props.EmployeeListDetailitemdetail[0].CAPHRID}   </div>
+           <div> AdminCode:    {this.props.EmployeeListDetailitemdetail[0].AdminCode} </div>
+           <div> OcupSeries:    {this.props.EmployeeListDetailitemdetail[0].OcupSeries} </div>
+           <div> Grade:    {this.props.EmployeeListDetailitemdetail[0].Grade} </div>
+           <div>BUCode:  {this.props.EmployeeListDetailitemdetail[0].BUCode} </div>
+           <div> JobTtile:  {this.props.EmployeeListDetailitemdetail[0].JobTitle} </div>
+             </div>                          
            
         )
+
+        
+        
     }
+
+    return( <p>Default message</p> )
     }
 
 }
