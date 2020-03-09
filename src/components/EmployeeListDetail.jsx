@@ -59,7 +59,14 @@ import { itemdetailsFetchData } from '../actions/itemdetails';
         
     }
 
-    return( <p>Default message</p> )
+    return( 
+        <div>
+        <div><h2>Employee List Information</h2></div>
+        <p>Missing Employee list data</p> 
+        <p>{this.props.employee}</p>
+        </div>
+    
+    )
     }
 
 }
