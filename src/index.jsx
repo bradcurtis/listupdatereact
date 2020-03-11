@@ -8,6 +8,7 @@ import axios from 'axios';
 import ReactDom from "react-dom"
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
+import {EmployeeUpdatePage} from './components/EmployeeUpdatePage'
 
 
 import ItemList from './components/ItemList';
@@ -28,7 +29,7 @@ class App extends Component {
         <Provider store={store}>
             <div><h2>Telework Update</h2>
 
-            <ItemList />  
+            <EmployeeUpdatePage></EmployeeUpdatePage>
 
         </div></Provider>
   )
