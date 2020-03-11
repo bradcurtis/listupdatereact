@@ -12,13 +12,17 @@ import AdminCodeDetail from './AdminCodeDetail'
     { 
         super(props);  
         this.state = { display : 'none' }; 
+
+       
        
     }
 
   
 
+    //TODO: swtich to arrow function  onitemclickhandler = event => {}
     onItemClickHandler(item, e){
         console.log("changing state");
+        //TODO: non immutable.  need to copy state then change props use spread operator ...
         this.setState({ state: this.state });
         
         if (this.state.display === 'none')
@@ -65,18 +69,12 @@ import AdminCodeDetail from './AdminCodeDetail'
            
 
 
-           <EmployeeListDetail key={"EmployeeDetail"+this.props.item.Id} employee={encodeURIComponent(this.props.item.TeleworkerName.WorkEMail)}></EmployeeListDetail>
+           <EmployeeListDetail key={"EmployeeDetail:"+this.props.item.Id} employee={encodeURIComponent(this.props.item.TeleworkerName.WorkEMail)}></EmployeeListDetail>
 
-           <AdminCodeDetail key={"AdminCode"+this.props.item.Id} admincode={this.props.item.AdminCode}></AdminCodeDetail>
+           <AdminCodeDetail key={"AdminCode:"+this.props.item.AdminCode} admincode={this.props.item.AdminCode}></AdminCodeDetail>
 
+         
            
-
-          
-                                    
-            
-           
-           
-            <button>Update Item</button>
             
         </div>
         </li> 

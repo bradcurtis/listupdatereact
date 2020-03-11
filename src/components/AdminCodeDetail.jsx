@@ -32,6 +32,9 @@ import {admincodesFetchData} from '../actions/admincodes'
 
         console.log("Admin Code Render" + this.props.AdminCodeDetailItem)
 
+        if (!this.props.admincode){
+            return <p>Sorry! Missing Admin Code</p>;
+        }
         if (this.props.AdminCodehasErrored) {
             return <p>Sorry! There was an error loading the items</p>;
         }
