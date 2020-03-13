@@ -1,7 +1,7 @@
 {
-    "name": "mongo-express-react",
+    "name": "react-web-service",
     "version": "1.0.0",
-    "description": "A full stack application with React and MongoDB (Easily deployed)",
+    "description": "A sample application with react redux thunks and axios",
     "main": "index.js",
     "scripts": {
         "build": "npm run build:react && npm run build:bundle",
