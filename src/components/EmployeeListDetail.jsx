@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types'
 import { itemdetailsFetchData } from '../actions/itemdetails';
+import AdminCodeDetail from './AdminCodeDetail'
 
 
 
@@ -49,7 +50,7 @@ import { itemdetailsFetchData } from '../actions/itemdetails';
            <div>BUCode:  {this.props.EmployeeListDetailitemdetail[0].BUCode} </div>
            <div> JobTtile:  {this.props.EmployeeListDetailitemdetail[0].JobTitle} </div>
 
-          
+           <AdminCodeDetail key={"AdminCode:"+this.props.EmployeeListDetailitemdetail[0].AdminCode} admincode={this.props.EmployeeListDetailitemdetail[0].AdminCode}></AdminCodeDetail>
            
              </div>                          
            

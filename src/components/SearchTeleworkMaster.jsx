@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
-import { itemsFetchData } from "../actions/items";
+import { itemsFetchData, itemdetailsUpdateItem } from "../actions/items";
 
 class SearchTeleworkMaster extends Component {
   onItemClickHandler() {
@@ -34,21 +34,22 @@ class SearchTeleworkMaster extends Component {
       "JobTtile:  " + this.props.EmployeeListDetailitemdetail[0].JobTtile
     );
     console.log(
-        "AdminCode List:  " + this.props.AdminCodeDetailItem[0].AdminCode
-      );
-      console.log(
-        "AdminCode List Super Office:  " + this.props.AdminCodeDetailItem[0].SuperOffice
-      );
-      console.log(
-        "AdminCode List Office:  " + this.props.AdminCodeDetailItem[0].Office
-      );
-      console.log(
-        "AdminCode List Division:  " + this.props.AdminCodeDetailItem[0].Division
-      );
-      console.log(
-        "AdminCode List:  " + this.props.AdminCodeDetailItem[0].Branch
-      );
-      
+      "AdminCode List:  " + this.props.AdminCodeDetailItem[0].AdminCode
+    );
+    console.log(
+      "AdminCode List Super Office:  " +
+        this.props.AdminCodeDetailItem[0].SuperOffice
+    );
+    console.log(
+      "AdminCode List Office:  " + this.props.AdminCodeDetailItem[0].Office
+    );
+    console.log(
+      "AdminCode List Division:  " + this.props.AdminCodeDetailItem[0].Division
+    );
+    console.log("AdminCode List:  " + this.props.AdminCodeDetailItem[0].Branch);
+
+    console.log(this.props.postData);
+    this.props.postData();
   }
 
   render() {
@@ -81,6 +82,7 @@ const mapStateToProps = state => {
   return {
     items: state.items,
     EmployeeListDetailitemdetail: state.itemdetails,
+    postData: propTypes.func.isRequired,
     AdminCodeDetailItem: state.admincodes,
     hasErrored: state.itemsHasErrored,
     isLoading: state.itemsIsLoading
@@ -89,7 +91,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: url => dispatch(itemsFetchData(url))
+    fetchData: url => dispatch(itemsFetchData(url)),
+    postData: url => dispatch(itemdetailsUpdateItem(url))
   };
 };
 

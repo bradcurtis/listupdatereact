@@ -10,7 +10,7 @@ class ItemList extends Component {
     //http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'
     //this.props.fetchData(
     //  "http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster?$expand=TeleworkerName&$filter=SuperOffice eq null&$orderby=Modified desc"
-   // );
+    // );
   }
 
   onItemClickHandler() {
@@ -42,6 +42,8 @@ class ItemList extends Component {
     console.log(
       "JobTtile:  " + this.props.EmployeeListDetailitemdetail[0].JobTtile
     );
+
+    
   }
 
   render() {
@@ -55,7 +57,7 @@ class ItemList extends Component {
 
     if (this.props.items) {
       return (
-        <div>          
+        <div>
           <ul>
             {this.props.items
               .filter(

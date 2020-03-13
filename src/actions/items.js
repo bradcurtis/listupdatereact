@@ -45,3 +45,53 @@ export function itemsFetchData(url) {
 
     };
 }
+
+export function itemdetailsPostIsLoading(bool) {
+    return {
+      type: "itemdetailsPost_IS_LOADING",
+      isLoading: bool
+    };
+  }
+  
+  export function itemdetailsPostDataSuccess(bool) {
+    return {
+      type: "itemdetails_POST_DATA_SUCCESS",
+      sucess: bool
+    };
+  }
+
+export function itemdetailsUpdateItem() {
+    return dispatch => {
+      dispatch(itemdetailsPostIsLoading(true));
+      console.log("called item post:" );
+      var axiosConfig =  {
+        headers:{
+            "Accept": "application/json;odata=verbose",
+            "X-HTTP-Method": "MERGE",
+            "If-Match": "*"              
+        }                     
+    } 
+  
+      // axios.get('http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster')
+      axios
+        .post(
+          "http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/Tasks(1)",
+          {            
+            "Title": "TestUpdated"
+          },axiosConfig
+        )
+        .then(response => {
+          if (!response.status == 200) {
+            throw Error(response.statusText);
+          }
+          dispatch(itemdetailsPostIsLoading(false));
+          return response;
+        })
+        .then(response => response.data.d.results)
+        .then(itemdetails => dispatch(itemdetailsPostDataSuccess(true)))
+        .catch(function(error) {
+          console.log(error);
+        });
+    };
+  }
+  

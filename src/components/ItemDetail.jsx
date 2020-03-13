@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 
 import EmployeeListDetail from './EmployeeListDetail'
-import AdminCodeDetail from './AdminCodeDetail'
+
 
 
 
@@ -71,7 +71,7 @@ import AdminCodeDetail from './AdminCodeDetail'
 
            <EmployeeListDetail key={"EmployeeDetail:"+this.props.item.Id} employee={encodeURIComponent(this.props.item.TeleworkerName.WorkEMail)}></EmployeeListDetail>
 
-           <AdminCodeDetail key={"AdminCode:"+this.props.item.AdminCode} admincode={this.props.item.AdminCode}></AdminCodeDetail>
+          
 
          
            
