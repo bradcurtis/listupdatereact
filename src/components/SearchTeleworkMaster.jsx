@@ -15,6 +15,7 @@ class SearchTeleworkMaster extends Component {
   }
 
   updateItem(e) {
+    alert(this.props.selectedItem.Id);
     console.log(
       "Bubble up office:  " +
         this.props.EmployeeListDetailitemdetail[0].AdminCode
@@ -72,6 +73,7 @@ class SearchTeleworkMaster extends Component {
 SearchTeleworkMaster.propTypes = {
   fetchData: propTypes.func.isRequired,
   items: propTypes.array.isRequired,
+  selectedItem: propTypes.object.isRequired,
   EmployeeListDetailitemdetail: propTypes.array.isRequired,
   AdminCodeDetailItem: propTypes.array.isRequired,
   hasErrored: propTypes.bool.isRequired,
@@ -81,6 +83,7 @@ SearchTeleworkMaster.propTypes = {
 const mapStateToProps = state => {
   return {
     items: state.items,
+    selectedItem: state.selectedItem,
     EmployeeListDetailitemdetail: state.itemdetails,
     postData: propTypes.func.isRequired,
     AdminCodeDetailItem: state.admincodes,

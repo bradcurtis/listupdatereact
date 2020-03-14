@@ -2,48 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
 import ItemDetail from "./ItemDetail";
-import { itemsFetchData } from "../actions/items";
+import { itemsFetchData, setSelectedItem } from "../actions/items";
 
 class ItemList extends Component {
-  componentDidMount() {
-    //this.props.fetchData('http://599167402df2f40011e4929a.mockapi.io/items');
-    //http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'
-    //this.props.fetchData(
-    //  "http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster?$expand=TeleworkerName&$filter=SuperOffice eq null&$orderby=Modified desc"
-    // );
+  constructor(props) {
+    super(props);
+    this.state = { selectedItem: {} };
+    this.handleCounter = this.handleCounter.bind(this);
   }
 
-  onItemClickHandler() {
-    console.log("search click" + document.getElementById("lname").value);
-
-    this.props.fetchData(
-      "http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster?$expand=TeleworkerName&$filter=TeleworkerName/LastName eq '" +
-        document.getElementById("lname").value +
-        "'and StatusValue eq 'Verified'&$orderby=Modified desc"
-    );
-  }
-
-  updateItem(e) {
-    console.log(
-      "Bubble up office:  " +
-        this.props.EmployeeListDetailitemdetail[0].AdminCode
-    );
-    console.log(
-      "EmployeeName:  " +
-        this.props.EmployeeListDetailitemdetail[0].EmployeeName
-    );
-    console.log("Grade:  " + this.props.EmployeeListDetailitemdetail[0].Grade);
-    console.log(
-      "OcupSeries:  " + this.props.EmployeeListDetailitemdetail[0].OcupSeries
-    );
-    console.log(
-      "BUCode:  " + this.props.EmployeeListDetailitemdetail[0].BUCode
-    );
-    console.log(
-      "JobTtile:  " + this.props.EmployeeListDetailitemdetail[0].JobTtile
-    );
-
-    
+  handleCounter(item) {
+    console.log("we finally found this guy" + item.Id);
+    this.props.setSelected(item);
+    this.props.handleCounter(item);
   }
 
   render() {
@@ -66,7 +37,11 @@ class ItemList extends Component {
                   items.Title != "Historical Data Upload"
               )
               .map(item => (
-                <ItemDetail key={item.Id} item={item}></ItemDetail>
+                <ItemDetail
+                  key={item.Id}
+                  item={item}
+                  handleCounter={this.handleCounter}
+                ></ItemDetail>
               ))}
           </ul>
         </div>
@@ -77,7 +52,9 @@ class ItemList extends Component {
 
 ItemList.propTypes = {
   fetchData: propTypes.func.isRequired,
+  setSelected: propTypes.func.isRequired,
   items: propTypes.array.isRequired,
+  selectedItem: propTypes.object.isRequired,
   EmployeeListDetailitemdetail: propTypes.array.isRequired,
   hasErrored: propTypes.bool.isRequired,
   isLoading: propTypes.bool.isRequired
@@ -86,6 +63,7 @@ ItemList.propTypes = {
 const mapStateToProps = state => {
   return {
     items: state.items,
+    selectedItem: state.selectedItem,
     EmployeeListDetailitemdetail: state.itemdetails,
     hasErrored: state.itemsHasErrored,
     isLoading: state.itemsIsLoading
@@ -94,7 +72,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: url => dispatch(itemsFetchData(url))
+    fetchData: url => dispatch(itemsFetchData(url)),
+    setSelected: item => dispatch(setSelectedItem(item))
   };
 };
 

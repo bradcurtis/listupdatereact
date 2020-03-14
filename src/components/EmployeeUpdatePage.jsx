@@ -1,18 +1,23 @@
-import React, {Component} from 'react'; 
-import { connect } from 'react-redux';
-import SearchTeleworkMaster from './SearchTeleworkMaster'
-import ItemList from './ItemList'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import SearchTeleworkMaster from "./SearchTeleworkMaster";
+import ItemList from "./ItemList";
 
-export  class EmployeeUpdatePage extends Component {
+export class EmployeeUpdatePage extends Component {
+  connstructor(props) {
+    this.handleCounter = this.handleCounter.bind(this);
+  }
 
-    render(){
-      return(
-          <div>
+  handleCounter(item) {
+    console.log("we finally found this guy" + item.Id);
+  }
+
+  render() {
+    return (
+      <div>
         <SearchTeleworkMaster></SearchTeleworkMaster>
-        <ItemList></ItemList>
-        </div>
-      );
-
-    }
-
+        <ItemList handleCounter={this.handleCounter}></ItemList>
+      </div>
+    );
+  }
 }

@@ -21,6 +21,20 @@ export function itemsFetchDataSuccess(items) {
     };
 }
 
+export function SelectedItemUpdate(selectedItem) {
+  return {
+      type: 'SelectedItemUpdate',
+      selectedItem
+  };
+}
+
+export function setSelectedItem(item){
+
+  return (dispatch) => {
+  dispatch(SelectedItemUpdate(item))
+  }
+}
+
 export function itemsFetchData(url) {
     return (dispatch) => {
         dispatch(itemsIsLoading(true));
@@ -59,6 +73,8 @@ export function itemdetailsPostIsLoading(bool) {
       sucess: bool
     };
   }
+
+
 
 export function itemdetailsUpdateItem() {
     return dispatch => {
