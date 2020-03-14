@@ -17,22 +17,20 @@ export default class ItemDetail extends Component {
     this.props.handleCounter(this.props.item);
   }
 
-  
-
   render() {
     //check for null teleworker
 
     if (this.state.display === "none" || !this.props.item.TeleworkerName) {
       return (
         <li onClick={this.onItemClickHandler.bind(this, this.props.item)}>
-          {this.props.item.Title}{" "}
+          {this.props.item.TeleworkerName.Name}:{this.props.item.Title}
         </li>
       );
     }
-    if (this.props.item.TeleworkerName.Name && this.state.display === "block") {
+    if ( this.state.display === "block") {
       return (
         <li onClick={this.onItemClickHandler.bind(this, this.props.item)}>
-          {this.props.item.Title}
+          {this.props.item.TeleworkerName.Name}:{this.props.item.Title}
           <div style={this.state}>
             <div>
               <h2>Telework List Information</h2>
@@ -44,7 +42,7 @@ export default class ItemDetail extends Component {
 
             <div> SuperOffice: {this.props.item.SuperOffice} </div>
             <div> Office: {this.props.item.Office} </div>
-            <div> Division: {this.props.item.Division} </div>
+            <div> Division: {this.props.item.Dvision} </div>
             <div> Branch: {this.props.item.Branch} </div>
 
             <div> Admin Code: {this.props.item.AdminCode} </div>

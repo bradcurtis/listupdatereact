@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
 import { itemsFetchData, itemdetailsUpdateItem } from "../actions/items";
+import { itemdetailsIsLoading } from "../reducers/itemdetails";
 
 class SearchTeleworkMaster extends Component {
   onItemClickHandler() {
@@ -15,7 +16,6 @@ class SearchTeleworkMaster extends Component {
   }
 
   updateItem(e) {
-    alert(this.props.selectedItem.Id);
     console.log(
       "Bubble up office:  " +
         this.props.EmployeeListDetailitemdetail[0].AdminCode
@@ -50,7 +50,59 @@ class SearchTeleworkMaster extends Component {
     console.log("AdminCode List:  " + this.props.AdminCodeDetailItem[0].Branch);
 
     console.log(this.props.postData);
-    this.props.postData();
+
+    let updateItem = {};
+    if (
+      !this.props.selectedItem.SuperOffice &&
+      this.props.AdminCodeDetailItem[0].SuperOffice || (this.props.selectedItem.SuperOffice !=
+        this.props.AdminCodeDetailItem[0].SuperOffice)
+    )
+      updateItem.SuperOffice = this.props.AdminCodeDetailItem[0].SuperOffice;
+    if (
+      !this.props.selectedItem.Office &&
+      this.props.AdminCodeDetailItem[0].Office || (this.props.selectedItem.Office !=
+        this.props.AdminCodeDetailItem[0].Office)
+    )
+      updateItem.Office = this.props.AdminCodeDetailItem[0].Office;
+    if (
+      !this.props.selectedItem.Dvision &&
+      this.props.AdminCodeDetailItem[0].Division || (this.props.selectedItem.Dvision !=
+        this.props.AdminCodeDetailItem[0].Division)
+    )
+      updateItem.Dvision = this.props.AdminCodeDetailItem[0].Division;
+    if (
+      !this.props.selectedItem.Branch &&
+      this.props.AdminCodeDetailItem[0].Branch || ( this.props.selectedItem.Branch !=
+        this.props.AdminCodeDetailItem[0].Branch)
+    )
+      updateItem.Branch = this.props.AdminCodeDetailItem[0].Branch;
+    if (
+      !this.props.selectedItem.AdminCode &&
+      this.props.AdminCodeDetailItem[0].AdminCode || (this.props.selectedItem.AdminCode !=
+        this.props.AdminCodeDetailItem[0].AdminCode)
+    )
+      updateItem.AdminCode = this.props.AdminCodeDetailItem[0].AdminCode;
+    if (
+      !this.props.selectedItem.BUCodeValue &&
+      this.props.EmployeeListDetailitemdetail[0].BUCode || (this.props.selectedItem.BUCodeValue !=
+        this.props.EmployeeListDetailitemdetail[0].BUCode)
+    )
+      updateItem.BUCodeValue = this.props.EmployeeListDetailitemdetail[0].BUCode
+    if (
+      !this.props.selectedItem.PositionTitle &&
+      this.props.EmployeeListDetailitemdetail[0].JobTitle || (this.props.selectedItem.PositionTitle !=
+        this.props.EmployeeListDetailitemdetail[0].JobTitle)
+    )
+      updateItem.PositionTitle = this.props.EmployeeListDetailitemdetail[0].JobTitle
+
+    if(Object.keys(updateItem).length > 0)
+    this.props.postData(this.props.selectedItem, updateItem);
+
+    this.props.fetchData(
+      "http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkMaster?$expand=TeleworkerName&$filter=TeleworkerName/LastName eq '" +
+        document.getElementById("lname").value +
+        "'and StatusValue eq 'Verified'&$orderby=Modified desc"
+    );
   }
 
   render() {
@@ -95,7 +147,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchData: url => dispatch(itemsFetchData(url)),
-    postData: url => dispatch(itemdetailsUpdateItem(url))
+    postData: (selectedItem, updateItem) =>
+      dispatch(itemdetailsUpdateItem(selectedItem, updateItem))
   };
 };
 

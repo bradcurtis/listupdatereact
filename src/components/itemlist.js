@@ -33,7 +33,6 @@ class ItemList extends Component {
             {this.props.items
               .filter(
                 items =>
-                  items.Office == null &&
                   items.Title != "Historical Data Upload"
               )
               .map(item => (
