@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import EmployeeListDetail from "./EmployeeListDetail";
 
-export default class ItemDetail extends Component {
+export default class ReportItemDetail extends Component {
   constructor(props) {
     super(props);
     this.state = { display: "none" };
@@ -13,44 +13,25 @@ export default class ItemDetail extends Component {
     if (e.target.tagName == "LI") {
       if (this.state.display === "none") this.setState({ display: "block" });
       else this.setState({ display: "none" });
-
-      this.props.handleCounter(this.props.item);
+     
     }
   }
 
   render() {
     //check for null teleworker
 
-    if (this.state.display === "none" || !this.props.item.TeleworkerName) {
+    if (this.state.display === "none" && this.props.item.TeleworkerName && this.props.item.TeleworkerName.Name) {
       return (
         <li onClick={this.onItemClickHandler.bind(this, this.props.item)}>
           {this.props.item.TeleworkerName.Name}:{this.props.item.Title}
         </li>
       );
     }
-    if (this.state.display === "block") {
+    if (this.state.display === "block" && this.props.item.TeleworkerName && this.props.item.TeleworkerName.Name) {
       return (
         <li onClick={this.onItemClickHandler.bind(this, this.props.item)}>
           {this.props.item.TeleworkerName.Name}:{this.props.item.Title}
-          <div style={this.state}>
-            <div>
-              <h2>Telework List Information</h2>
-            </div>
-
-            <div>Name: {this.props.item.TeleworkerName.Name}</div>
-            <div> Title: {this.props.item.PositionTitle} </div>
-            <div> Employment Type: {this.props.item.EmploymentType} </div>
-
-            <div> SuperOffice: {this.props.item.SuperOffice} </div>
-            <div> Office: {this.props.item.Office} </div>
-            <div> Division: {this.props.item.Dvision} </div>
-            <div> Branch: {this.props.item.Branch} </div>
-
-            <div> Admin Code: {this.props.item.AdminCode} </div>
-            <div>
-              {" "}
-              Email Address: {this.props.item.TeleworkerName.WorkEMail}
-            </div>
+          <div style={this.state}>            
 
             <EmployeeListDetail
               key={"EmployeeDetail:" + this.props.item.Id}
@@ -62,6 +43,6 @@ export default class ItemDetail extends Component {
         </li>
       );
     }
-    return <p>missing teleworker name</p>;
+    return <li>missing teleworker name</li>;
   }
 }
