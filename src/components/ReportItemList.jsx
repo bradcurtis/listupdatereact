@@ -2,19 +2,41 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import propTypes from "prop-types";
 import { reportItemsFetchData } from "../actions/reportitems";
-import ReportItemDetail from "./ReportItemDetail"
+import ReportItemDetail from "./ReportItemDetail";
+import { Pagination } from "./Pagination";
 
 class ReportItemList extends Component {
- 
+  constructor() {
+    super();
+
+    this.state = {
+      pageOfItems: [],
+      skip: 200,
+      top: 200
+    };
+
+    this.onChangePage = this.onChangePage.bind(this);
+    this.onCallNext = this.onCallNext.bind(this);
+  }
+
+  onChangePage(pageOfItems) {
+    // update state with new page of items
+    this.setState({ pageOfItems: pageOfItems });
+  }
+
+  onCallNext(nextskip) {
+    this.setState({skip: this.state.skip+this.state.top})
+    this.props.fetchData(
+      "http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkReporting?$expand=TeleworkerName&$top=50&$skip=" +
+      this.state.skip
+    );
+  }
 
   componentDidMount() {
-    
-
-      // /http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'
-      this.props.fetchData(
-        "http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkReporting?$expand=TeleworkerName&$top=50&$skip=100"
-      );
-    
+    // /http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/CDEREmployees?$expand=ADAccount/SIPAddress&$filter=ADAccount/SIPAddress eq 'Robert.Lim@fda.hhs.gov'
+    this.props.fetchData(
+      "http://sharepoint.fda.gov/orgs/CDER-OMDMSSvc/TeleworkMgmt/_vti_bin/ListData.svc/TeleworkReporting?$expand=TeleworkerName&$top=50&$skip=200"
+    );
   }
 
   render() {
@@ -29,24 +51,31 @@ class ReportItemList extends Component {
     if (this.props.reportItems) {
       return (
         <div>
+          <Pagination
+            items={this.props.reportItems}
+            skip={this.state.skip}
+            top={this.state.top}
+            onChangePage={this.onChangePage}
+            onCallNext={this.onCallNext}
+          />
+          {this.state.pageOfItems.map(item => (
+            <div>
+              <ReportItemDetail key={item.Id} item={item}></ReportItemDetail>
+            </div>
+          ))}
+
           <ul>
             {this.props.reportItems
-              .filter(
-                items =>
-                  items.Title != "Historical Data Upload"
-              )
+              .filter(items => items.Title != "Historical Data Upload")
               .map(item => (
-                <ReportItemDetail
-                  key={item.Id}
-                  item={item}
-                ></ReportItemDetail>
+                <ReportItemDetail key={item.Id} item={item}></ReportItemDetail>
               ))}
           </ul>
         </div>
       );
     }
 
-   return <h1>hello world</h1>;
+    return <h1>hello world</h1>;
   }
 }
 
